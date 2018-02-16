@@ -8,7 +8,7 @@ add_compile_options(-O3)
 find_package(catkin_simple REQUIRED)
 catkin_simple(ALL_DEPS_REQUIRED)
 
-cs_add_library(${PROJECT_NAME} SHARED src/state_predictor.cpp 
+cs_add_library(${PROJECT_NAME} src/state_predictor.cpp 
     src/quad_ext_state_estimate.cpp)
 
 cs_install()
