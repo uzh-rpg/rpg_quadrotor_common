@@ -18,7 +18,7 @@ struct ControlCommand
   virtual ~ControlCommand();
 
   void zero();
-  quadrotor_msgs::ControlCommand toRosMessage();
+  quadrotor_msgs::ControlCommand toRosMessage() const;
 
   ros::Time timestamp;
 

@@ -67,7 +67,7 @@ void ControlCommand::zero()
   rotor_thrusts = Eigen::VectorXd::Zero(rotor_thrusts.size());
 }
 
-quadrotor_msgs::ControlCommand ControlCommand::toRosMessage()
+quadrotor_msgs::ControlCommand ControlCommand::toRosMessage() const
 {
   quadrotor_msgs::ControlCommand ros_msg;
 

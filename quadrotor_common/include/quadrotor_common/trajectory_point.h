@@ -13,7 +13,7 @@ struct TrajectoryPoint
   TrajectoryPoint(const quadrotor_msgs::TrajectoryPoint& trajectory_point_msg);
   virtual ~TrajectoryPoint();
 
-  quadrotor_msgs::TrajectoryPoint toRosMessage();
+  quadrotor_msgs::TrajectoryPoint toRosMessage() const;
 
   ros::Duration time_from_start;
 

@@ -44,7 +44,7 @@ QuadStateEstimate::~QuadStateEstimate()
 {
 }
 
-nav_msgs::Odometry QuadStateEstimate::toRosMessage()
+nav_msgs::Odometry QuadStateEstimate::toRosMessage() const
 {
   nav_msgs::Odometry msg;
 

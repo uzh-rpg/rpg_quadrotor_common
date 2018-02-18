@@ -46,7 +46,7 @@ TrajectoryPoint::~TrajectoryPoint()
 {
 }
 
-quadrotor_msgs::TrajectoryPoint TrajectoryPoint::toRosMessage()
+quadrotor_msgs::TrajectoryPoint TrajectoryPoint::toRosMessage() const
 {
   quadrotor_msgs::TrajectoryPoint ros_msg;
 

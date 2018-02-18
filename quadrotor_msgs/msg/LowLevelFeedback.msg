@@ -1,8 +1,8 @@
 # battery state enums
-uint8 INVALID=0
-uint8 GOOD=1
-uint8 LOW=2
-uint8 CRITICAL=3
+uint8 BAT_INVALID=0
+uint8 BAT_GOOD=1
+uint8 BAT_LOW=2
+uint8 BAT_CRITICAL=3
 
 # control mode enums as defined in ControlCommand.msg
 uint8 NONE=0
