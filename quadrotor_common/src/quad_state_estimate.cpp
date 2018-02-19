@@ -1,5 +1,7 @@
 #include "quadrotor_common/quad_state_estimate.h"
 
+#include <string>
+
 #include "quadrotor_common/geometry_eigen_conversions.h"
 
 namespace quadrotor_common
@@ -79,6 +81,32 @@ nav_msgs::Odometry QuadStateEstimate::toRosMessage() const
 void QuadStateEstimate::transformBodyRatesToBodyFrame()
 {
   bodyrates = orientation.inverse() * bodyrates;
+}
+
+bool QuadStateEstimate::isValid() const
+{
+  if (coordinate_frame == CoordinateFrame::INVALID)
+  {
+    return false;
+  }
+  if (std::isnan(position.norm()))
+  {
+    return false;
+  }
+  if (std::isnan(velocity.norm()))
+  {
+    return false;
+  }
+  if (std::isnan(orientation.norm()))
+  {
+    return false;
+  }
+  if (std::isnan(bodyrates.norm()))
+  {
+    return false;
+  }
+
+  return true;
 }
 
 } // namespace quadrotor_common

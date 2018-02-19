@@ -15,6 +15,7 @@ struct QuadStateEstimate
 
   nav_msgs::Odometry toRosMessage() const;
   void transformBodyRatesToBodyFrame();
+  bool isValid() const;
 
   ros::Time timestamp;
   enum class CoordinateFrame
