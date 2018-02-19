@@ -78,9 +78,9 @@ nav_msgs::Odometry QuadStateEstimate::toRosMessage() const
   return msg;
 }
 
-void QuadStateEstimate::transformBodyRatesToBodyFrame()
+void QuadStateEstimate::transformVelocityToWorldFrame()
 {
-  bodyrates = orientation.inverse() * bodyrates;
+  velocity = orientation * velocity;
 }
 
 bool QuadStateEstimate::isValid() const

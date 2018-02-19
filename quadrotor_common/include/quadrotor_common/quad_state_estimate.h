@@ -14,7 +14,7 @@ struct QuadStateEstimate
   virtual ~QuadStateEstimate();
 
   nav_msgs::Odometry toRosMessage() const;
-  void transformBodyRatesToBodyFrame();
+  void transformVelocityToWorldFrame();
   bool isValid() const;
 
   ros::Time timestamp;
