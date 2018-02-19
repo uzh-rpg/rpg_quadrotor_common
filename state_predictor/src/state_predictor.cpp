@@ -83,11 +83,9 @@ bool StatePredictor::isInitialized()
 void StatePredictor::updateWithStateEstimate(
     const quadrotor_common::QuadStateEstimate& state_estimate)
 {
-  if (state_estimate.coordinate_frame
-      == quadrotor_common::QuadStateEstimate::CoordinateFrame::INVALID)
+  if (!state_estimate.isValid())
   {
-    // If the state estimate does not have a valid coordinate frame we do not
-    // consider it in the predictor
+    // If the state estimate is not valid we do not consider it in the predictor
     return;
   }
 
