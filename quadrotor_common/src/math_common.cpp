@@ -1,5 +1,7 @@
 #include "quadrotor_common/math_common.h"
 
+#include <ros/duration.h>
+
 namespace quadrotor_common
 {
 
@@ -90,6 +92,121 @@ Eigen::Affine3d lowpass(const Eigen::Affine3d& filterin,
   double alpha;
   alpha = fcToAlpha(fc, dt);
   return lowpass(filterin, input, alpha);
+}
+
+double interpolate(const double v0, const double v1,
+                   const double interpolation_ratio)
+{
+  // interpolation_ratio = [0; 1]
+  // interpolation_ratio = 0 -> get v0
+  // interpolation_ratio = 1 -> get v1
+  if (interpolation_ratio <= 0.0)
+  {
+    return v0;
+  }
+  if (interpolation_ratio >= 1.0)
+  {
+    return v1;
+  }
+
+  return v0 + interpolation_ratio * (v1 - v0);
+}
+
+Eigen::Vector3d interpolate(const Eigen::Vector3d& v0,
+                            const Eigen::Vector3d& v1,
+                            const double interpolation_ratio)
+{
+  // interpolation_ratio = [0; 1]
+  // interpolation_ratio = 0 -> get v0
+  // interpolation_ratio = 1 -> get v1
+  if (interpolation_ratio <= 0.0)
+  {
+    return v0;
+  }
+  if (interpolation_ratio >= 1.0)
+  {
+    return v1;
+  }
+
+  return v0 + interpolation_ratio * (v1 - v0);
+}
+
+Eigen::Quaterniond interpolate(const Eigen::Quaterniond& q0,
+                               const Eigen::Quaterniond& q1,
+                               const double interpolation_ratio)
+{
+  // interpolation_ratio = [0; 1]
+  // interpolation_ratio = 0 -> get q0
+  // interpolation_ratio = 1 -> get q1
+  if (interpolation_ratio <= 0.0)
+  {
+    return q0;
+  }
+  if (interpolation_ratio >= 1.0)
+  {
+    return q1;
+  }
+
+  return q0.slerp(interpolation_ratio, q1);
+}
+
+quadrotor_common::TrajectoryPoint interpolate(
+    const quadrotor_common::TrajectoryPoint& p0,
+    const quadrotor_common::TrajectoryPoint& p1,
+    const double interpolation_ratio)
+{
+  // interpolation_ratio = [0; 1]
+  // interpolation_ratio = 0 -> get p0
+  // interpolation_ratio = 1 -> get p1
+  if (interpolation_ratio <= 0.0)
+  {
+    return p0;
+  }
+  if (interpolation_ratio >= 1.0)
+  {
+    return p1;
+  }
+
+  quadrotor_common::TrajectoryPoint p_inter;
+
+  // Timestamp
+  p_inter.time_from_start = p0.time_from_start
+      + ros::Duration(
+          interpolation_ratio
+              * (p1.time_from_start - p0.time_from_start).toSec());
+
+  // Pose
+  p_inter.position = interpolate(p0.position, p1.position, interpolation_ratio);
+  p_inter.orientation = interpolate(p0.orientation, p1.orientation,
+                                    interpolation_ratio);
+
+  // Linear derivatives
+  p_inter.velocity = interpolate(p0.velocity, p1.velocity, interpolation_ratio);
+  p_inter.acceleration = interpolate(p0.acceleration, p1.acceleration,
+                                     interpolation_ratio);
+  p_inter.jerk = interpolate(p0.jerk, p1.jerk, interpolation_ratio);
+  p_inter.snap = interpolate(p0.snap, p1.snap, interpolation_ratio);
+
+  // Angular derivatives
+  p_inter.bodyrates = interpolate(p0.bodyrates, p1.bodyrates,
+                                  interpolation_ratio);
+  p_inter.angular_acceleration = interpolate(p0.angular_acceleration,
+                                             p1.angular_acceleration,
+                                             interpolation_ratio);
+  p_inter.angular_jerk = interpolate(p0.angular_jerk, p1.angular_jerk,
+                                     interpolation_ratio);
+  p_inter.angular_snap = interpolate(p0.angular_snap, p1.angular_snap,
+                                     interpolation_ratio);
+
+  // Heading angle and its derivatives
+  p_inter.heading = interpolate(p0.heading, p1.heading, interpolation_ratio);
+  p_inter.heading_rate = interpolate(p0.heading_rate, p1.heading_rate,
+                                     interpolation_ratio);
+  p_inter.heading_acceleration = interpolate(p0.heading_acceleration,
+                                             p1.heading_acceleration,
+                                             interpolation_ratio);
+
+  return p_inter;
 }
 
 double wrapZeroToTwoPi(const double angle)
