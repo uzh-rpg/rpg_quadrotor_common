@@ -2,6 +2,8 @@
 
 #include <Eigen/Dense>
 
+#include "quadrotor_common/trajectory_point.h"
+
 namespace quadrotor_common
 {
 
@@ -24,6 +26,19 @@ Eigen::Affine3d lowpass(const Eigen::Affine3d& filterin,
 Eigen::Affine3d lowpass(const Eigen::Affine3d& filterin,
                         const Eigen::Affine3d& input, const double fc,
                         const double dt);
+
+double interpolate(const double v0, const double v1,
+                   const double interpolation_ratio);
+Eigen::Vector3d interpolate(const Eigen::Vector3d& v0,
+                            const Eigen::Vector3d& v1,
+                            const double interpolation_ratio);
+Eigen::Quaterniond interpolate(const Eigen::Quaterniond& q0,
+                               const Eigen::Quaterniond& q1,
+                               const double interpolation_ratio);
+quadrotor_common::TrajectoryPoint interpolate(
+    const quadrotor_common::TrajectoryPoint& p0,
+    const quadrotor_common::TrajectoryPoint& p1,
+    const double interpolation_ratio);
 
 double wrapZeroToTwoPi(const double angle);
 double wrapMinusPiToPi(const double angle);
