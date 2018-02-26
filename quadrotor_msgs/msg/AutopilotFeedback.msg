@@ -26,7 +26,12 @@ duration control_command_delay
 duration control_computation_time
 
 # Duration left of the trajectories in the queue
+# Only valid in TRAJECTORY_CONTROL mode
 duration trajectory_execution_left_duration
+
+# Number of trajectories that were sent to the autopilot and are stored in its
+# queue. Only vlaid in TRAJECTORY_CONTROL mode
+uint8 trajectories_left_in_queues
 
 # Low level feedback
 quadrotor_msgs/LowLevelFeedback low_level_feedback
