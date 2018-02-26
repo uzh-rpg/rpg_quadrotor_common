@@ -15,7 +15,8 @@ cs_add_library(${PROJECT_NAME}
   src/parameter_helper.cpp
   src/quad_state_estimate.cpp
   src/quaternion_functions.cpp
-  src/trajectory_point.cpp)
+  src/trajectory_point.cpp
+  src/trajectory.cpp)
   
 cs_install()
 cs_export()

@@ -1,8 +1,11 @@
 #pragma once
 
-#include <quadrotor_common/trajectory_point.h>
+#include <list>
+
 #include <quadrotor_msgs/Trajectory.h>
 #include <ros/time.h>
+
+#include "quadrotor_common/trajectory_point.h"
 
 namespace quadrotor_common
 {

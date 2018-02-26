@@ -8,7 +8,8 @@ namespace quadrotor_common
 {
 
 Trajectory::Trajectory() :
-    timestamp(ros::Time::now()), trajectory_type(TrajectoryType::UNDEFINED), points()
+    timestamp(ros::Time::now()), trajectory_type(TrajectoryType::UNDEFINED),
+    points()
 {
 }
 
@@ -71,7 +72,7 @@ quadrotor_msgs::Trajectory Trajectory::toRosMessage() const
       break;
   }
 
-  std::list<quadrotor_common::TrajectoryPoint>::iterator it;
+  std::list<quadrotor_common::TrajectoryPoint>::const_iterator it;
   for (it = points.begin(); it != points.end(); it++)
   {
     ros_msg.points.push_back(it->toRosMessage());
@@ -96,7 +97,7 @@ quadrotor_common::TrajectoryPoint Trajectory::getStateAtTime(
 
   // Find points p0 and p1 such that
   // p0.time_from_start <= time_from_start <= p1.time_from_start
-  std::list<quadrotor_common::TrajectoryPoint>::iterator p1;
+  std::list<quadrotor_common::TrajectoryPoint>::const_iterator p1;
   for (p1 = points.begin(); p1 != points.end(); p1++)
   {
     if (p1->time_from_start > time_from_start)
@@ -104,7 +105,8 @@ quadrotor_common::TrajectoryPoint Trajectory::getStateAtTime(
       break;
     }
   }
-  std::list<quadrotor_common::TrajectoryPoint>::iterator p0 = std::prev(p1);
+  std::list<quadrotor_common::TrajectoryPoint>::const_iterator p0 = std::prev(
+      p1);
   const double interp_ratio = (time_from_start - p0->time_from_start).toSec()
       / (p1->time_from_start - p0->time_from_start).toSec();
 
