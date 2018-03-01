@@ -1,1 +1,3 @@
-# rpg_quadrotor_common
+# RPG Quadrotor Common
+
+This repository contains some basics used in our quadrotor framework at the Robotics and Perception Group. For details and instructions check out our main [RPG Quadrotor Control Repository](https://github.com/uzh-rpg/rpg_quadrotor_control).
