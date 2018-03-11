@@ -8,5 +8,5 @@ add_compile_options(-O3)
 find_package(catkin_simple REQUIRED)
 catkin_simple(ALL_DEPS_REQUIRED)
 
-cs_export()
 cs_install()
+cs_export()
