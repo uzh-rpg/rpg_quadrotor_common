@@ -9,6 +9,8 @@ namespace quadrotor_common
 
 struct QuadStateEstimate
 {
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
   QuadStateEstimate();
   QuadStateEstimate(const nav_msgs::Odometry& state_estimate_msg);
   virtual ~QuadStateEstimate();
