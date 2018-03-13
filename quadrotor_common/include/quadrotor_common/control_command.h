@@ -13,6 +13,8 @@ enum class ControlMode
 
 struct ControlCommand
 {
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
   ControlCommand();
   ControlCommand(const quadrotor_msgs::ControlCommand& control_command_msg);
   virtual ~ControlCommand();

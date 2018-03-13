@@ -9,6 +9,8 @@ namespace quadrotor_common
 
 struct TrajectoryPoint
 {
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
   TrajectoryPoint();
   TrajectoryPoint(const quadrotor_msgs::TrajectoryPoint& trajectory_point_msg);
   virtual ~TrajectoryPoint();
