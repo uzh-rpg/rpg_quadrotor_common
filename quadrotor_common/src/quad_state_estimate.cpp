@@ -8,7 +8,7 @@ namespace quadrotor_common
 {
 
 QuadStateEstimate::QuadStateEstimate() :
-    timestamp(ros::Time::now()), coordinate_frame(CoordinateFrame::WORLD),
+    timestamp(ros::Time::now()), coordinate_frame(CoordinateFrame::INVALID),
         position(Eigen::Vector3d::Zero()), velocity(Eigen::Vector3d::Zero()),
         orientation(Eigen::Quaterniond::Identity()),
         bodyrates(Eigen::Vector3d::Zero())
