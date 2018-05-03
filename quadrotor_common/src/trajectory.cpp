@@ -8,8 +8,8 @@ namespace quadrotor_common
 {
 
 Trajectory::Trajectory() :
-    timestamp(ros::Time::now()), trajectory_type(TrajectoryType::UNDEFINED),
-    points()
+  timestamp(ros::Time::now()), trajectory_type(TrajectoryType::UNDEFINED),
+  points()
 {
 }
 
@@ -41,6 +41,13 @@ Trajectory::Trajectory(const quadrotor_msgs::Trajectory& trajectory_msg)
     points.push_back(
         quadrotor_common::TrajectoryPoint(trajectory_msg.points[i]));
   }
+}
+
+Trajectory::Trajectory(const quadrotor_common::TrajectoryPoint& point) :
+  timestamp(ros::Time::now()), trajectory_type(TrajectoryType::GENERAL),
+  points()
+{
+  points.push_back(point);
 }
 
 Trajectory::~Trajectory()
