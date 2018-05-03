@@ -19,7 +19,7 @@ struct Trajectory
 
   quadrotor_msgs::Trajectory toRosMessage() const;
   quadrotor_common::TrajectoryPoint getStateAtTime(
-      const ros::Duration& time_from_start) const;
+    const ros::Duration& time_from_start) const;
 
   ros::Time timestamp;
 
