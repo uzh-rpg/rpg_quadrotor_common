@@ -14,11 +14,12 @@ struct Trajectory
 {
   Trajectory();
   Trajectory(const quadrotor_msgs::Trajectory& trajectory_msg);
+  Trajectory(const quadrotor_common::TrajectoryPoint& point);
   virtual ~Trajectory();
 
   quadrotor_msgs::Trajectory toRosMessage() const;
   quadrotor_common::TrajectoryPoint getStateAtTime(
-      const ros::Duration& time_from_start) const;
+    const ros::Duration& time_from_start) const;
 
   ros::Time timestamp;
 
