@@ -88,6 +88,31 @@ quadrotor_msgs::Trajectory Trajectory::toRosMessage() const
   return ros_msg;
 }
 
+nav_msgs::Path Trajectory::toRosPath() const
+{
+  nav_msgs::Path path_msg;
+  ros::Time t = ros::Time::now();
+  path_msg.header.stamp = t;
+
+  geometry_msgs::PoseStamped pose;
+
+  std::list<quadrotor_common::TrajectoryPoint>::const_iterator it;
+  for (it = points.begin(); it != points.end(); it++)
+  {
+    pose.header.stamp = t + it->time_from_start;
+    pose.pose.position.x = it->position.x();
+    pose.pose.position.y = it->position.y();
+    pose.pose.position.z = it->position.z();
+    pose.pose.orientation.w = it->orientation.w();
+    pose.pose.orientation.x = it->orientation.x();
+    pose.pose.orientation.y = it->orientation.y();
+    pose.pose.orientation.z = it->orientation.z();
+    path_msg.poses.push_back(pose);
+  }
+
+  return path_msg;
+}
+
 quadrotor_common::TrajectoryPoint Trajectory::getStateAtTime(
   const ros::Duration& time_from_start) const
 {
