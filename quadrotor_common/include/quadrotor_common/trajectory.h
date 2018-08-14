@@ -3,6 +3,7 @@
 #include <list>
 
 #include <quadrotor_msgs/Trajectory.h>
+#include <nav_msgs/Path.h>
 #include <ros/time.h>
 
 #include "quadrotor_common/trajectory_point.h"
@@ -18,6 +19,7 @@ struct Trajectory
   virtual ~Trajectory();
 
   quadrotor_msgs::Trajectory toRosMessage() const;
+  nav_msgs::Path toRosPath() const;
   quadrotor_common::TrajectoryPoint getStateAtTime(
     const ros::Duration& time_from_start) const;
 
