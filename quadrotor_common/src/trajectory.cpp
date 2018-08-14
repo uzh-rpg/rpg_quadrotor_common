@@ -93,6 +93,7 @@ nav_msgs::Path Trajectory::toRosPath() const
   nav_msgs::Path path_msg;
   ros::Time t = ros::Time::now();
   path_msg.header.stamp = t;
+  path_msg.header.frame_id = "world";
 
   geometry_msgs::PoseStamped pose;
 
