@@ -52,6 +52,15 @@ geometry_msgs::Vector3 eigenToGeometry(const Eigen::Vector3d& vec_eigen)
   return vec_ros;
 }
 
+geometry_msgs::Point eigenToGeometryPoint(const Eigen::Vector3d& vec_eigen)
+{
+  geometry_msgs::Point point;
+  point.x = vec_eigen.x();
+  point.y = vec_eigen.y();
+  point.z = vec_eigen.z();
+  return point;
+}
+
 geometry_msgs::Point vectorToPoint(const geometry_msgs::Vector3& vector)
 {
   geometry_msgs::Point point;

@@ -17,6 +17,7 @@ geometry_msgs::Quaternion eigenToGeometry(const Eigen::Quaterniond& vec_eigen);
 Eigen::Vector3d geometryToEigen(const geometry_msgs::Vector3& vec_ros);
 Eigen::Vector3d geometryToEigen(const geometry_msgs::Point& vec_ros);
 geometry_msgs::Vector3 eigenToGeometry(const Eigen::Vector3d& vec_eigen);
+geometry_msgs::Point eigenToGeometryPoint(const Eigen::Vector3d& vec_eigen);
 geometry_msgs::Point vectorToPoint(const geometry_msgs::Vector3& vector);
 
 // Pose
