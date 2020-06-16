@@ -4,36 +4,29 @@
 
 #include "quadrotor_common/geometry_eigen_conversions.h"
 
-namespace quadrotor_common
-{
+namespace quadrotor_common {
 
-QuadStateEstimate::QuadStateEstimate() :
-    timestamp(ros::Time::now()), coordinate_frame(CoordinateFrame::INVALID),
-        position(Eigen::Vector3d::Zero()), velocity(Eigen::Vector3d::Zero()),
-        orientation(Eigen::Quaterniond::Identity()),
-        bodyrates(Eigen::Vector3d::Zero())
-{
-}
+QuadStateEstimate::QuadStateEstimate()
+    : timestamp(ros::Time::now()),
+      coordinate_frame(CoordinateFrame::INVALID),
+      position(Eigen::Vector3d::Zero()),
+      velocity(Eigen::Vector3d::Zero()),
+      orientation(Eigen::Quaterniond::Identity()),
+      bodyrates(Eigen::Vector3d::Zero()) {}
 
 QuadStateEstimate::QuadStateEstimate(
-    const nav_msgs::Odometry& state_estimate_msg)
-{
+    const nav_msgs::Odometry& state_estimate_msg) {
   timestamp = state_estimate_msg.header.stamp;
   coordinate_frame = CoordinateFrame::INVALID;
-  if (state_estimate_msg.header.frame_id.compare("world") == 0)
-  {
+  if ((state_estimate_msg.header.frame_id.compare("world") == 0) ||
+      (state_estimate_msg.header.frame_id.compare("camera_odom_frame") == 0) ||
+      (state_estimate_msg.header.frame_id.compare("t265_odom_frame") == 0)) {
     coordinate_frame = CoordinateFrame::WORLD;
-  }
-  else if (state_estimate_msg.header.frame_id.compare("optitrack") == 0)
-  {
+  } else if (state_estimate_msg.header.frame_id.compare("optitrack") == 0) {
     coordinate_frame = CoordinateFrame::OPTITRACK;
-  }
-  else if (state_estimate_msg.header.frame_id.compare("vision") == 0)
-  {
+  } else if (state_estimate_msg.header.frame_id.compare("vision") == 0) {
     coordinate_frame = CoordinateFrame::VISION;
-  }
-  else if (state_estimate_msg.header.frame_id.compare("local") == 0)
-  {
+  } else if (state_estimate_msg.header.frame_id.compare("local") == 0) {
     coordinate_frame = CoordinateFrame::LOCAL;
   }
   position = geometryToEigen(state_estimate_msg.pose.pose.position);
@@ -42,17 +35,13 @@ QuadStateEstimate::QuadStateEstimate(
   bodyrates = geometryToEigen(state_estimate_msg.twist.twist.angular);
 }
 
-QuadStateEstimate::~QuadStateEstimate()
-{
-}
+QuadStateEstimate::~QuadStateEstimate() {}
 
-nav_msgs::Odometry QuadStateEstimate::toRosMessage() const
-{
+nav_msgs::Odometry QuadStateEstimate::toRosMessage() const {
   nav_msgs::Odometry msg;
 
   msg.header.stamp = timestamp;
-  switch (coordinate_frame)
-  {
+  switch (coordinate_frame) {
     case CoordinateFrame::WORLD:
       msg.header.frame_id = "world";
       break;
@@ -78,35 +67,28 @@ nav_msgs::Odometry QuadStateEstimate::toRosMessage() const
   return msg;
 }
 
-void QuadStateEstimate::transformVelocityToWorldFrame()
-{
+void QuadStateEstimate::transformVelocityToWorldFrame() {
   velocity = orientation * velocity;
 }
 
-bool QuadStateEstimate::isValid() const
-{
-  if (coordinate_frame == CoordinateFrame::INVALID)
-  {
+bool QuadStateEstimate::isValid() const {
+  if (coordinate_frame == CoordinateFrame::INVALID) {
     return false;
   }
-  if (std::isnan(position.norm()))
-  {
+  if (std::isnan(position.norm())) {
     return false;
   }
-  if (std::isnan(velocity.norm()))
-  {
+  if (std::isnan(velocity.norm())) {
     return false;
   }
-  if (std::isnan(orientation.norm()))
-  {
+  if (std::isnan(orientation.norm())) {
     return false;
   }
-  if (std::isnan(bodyrates.norm()))
-  {
+  if (std::isnan(bodyrates.norm())) {
     return false;
   }
 
   return true;
 }
 
-} // namespace quadrotor_common
+}  // namespace quadrotor_common
