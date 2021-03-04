@@ -20,21 +20,23 @@ ControlCommand::ControlCommand(
   timestamp = control_command_msg.header.stamp;
   switch (control_command_msg.control_mode)
   {
-    case control_command_msg.NONE:
-      control_mode = ControlMode::NONE;
-      break;
-    case control_command_msg.ATTITUDE:
-      control_mode = ControlMode::ATTITUDE;
-      break;
-    case control_command_msg.BODY_RATES:
-      control_mode = ControlMode::BODY_RATES;
-      break;
-    case control_command_msg.ANGULAR_ACCELERATIONS:
-      control_mode = ControlMode::ANGULAR_ACCELERATIONS;
-      break;
-    case control_command_msg.ROTOR_THRUSTS:
-      control_mode = ControlMode::ROTOR_THRUSTS;
-      break;
+  case quadrotor_msgs::ControlCommand::NONE:
+    control_mode = ControlMode::NONE;
+    break;
+  case quadrotor_msgs::ControlCommand::ATTITUDE:
+    control_mode = ControlMode::ATTITUDE;
+    break;
+  case quadrotor_msgs::ControlCommand::BODY_RATES:
+    control_mode = ControlMode::BODY_RATES;
+    break;
+  case quadrotor_msgs::ControlCommand::ANGULAR_ACCELERATIONS:
+    control_mode = ControlMode::ANGULAR_ACCELERATIONS;
+    break;
+  case quadrotor_msgs::ControlCommand::ROTOR_THRUSTS:
+    control_mode = ControlMode::ROTOR_THRUSTS;
+    break;
+  default:
+    break;
   }
   armed = control_command_msg.armed;
   expected_execution_time = control_command_msg.expected_execution_time;

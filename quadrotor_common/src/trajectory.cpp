@@ -19,21 +19,21 @@ Trajectory::Trajectory(const quadrotor_msgs::Trajectory& trajectory_msg)
 
   switch (trajectory_msg.type)
   {
-    case trajectory_msg.GENERAL:
-      trajectory_type = TrajectoryType::GENERAL;
-      break;
-    case trajectory_msg.ACCELERATION:
-      trajectory_type = TrajectoryType::ACCELERATION;
-      break;
-    case trajectory_msg.JERK:
-      trajectory_type = TrajectoryType::JERK;
-      break;
-    case trajectory_msg.SNAP:
-      trajectory_type = TrajectoryType::SNAP;
-      break;
-    default:
-      trajectory_type = TrajectoryType::UNDEFINED;
-      break;
+  case quadrotor_msgs::Trajectory::GENERAL:
+    trajectory_type = TrajectoryType::GENERAL;
+    break;
+  case quadrotor_msgs::Trajectory::ACCELERATION:
+    trajectory_type = TrajectoryType::ACCELERATION;
+    break;
+  case quadrotor_msgs::Trajectory::JERK:
+    trajectory_type = TrajectoryType::JERK;
+    break;
+  case quadrotor_msgs::Trajectory::SNAP:
+    trajectory_type = TrajectoryType::SNAP;
+    break;
+  default:
+    trajectory_type = TrajectoryType::UNDEFINED;
+    break;
   }
 
   for (int i = 0; i < trajectory_msg.points.size(); i++)
